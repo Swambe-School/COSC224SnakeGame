@@ -1,0 +1,9 @@
+[gd_scene format=3 uid="uid://bpjhn2x2vmq8n"]
+
+[node name="snake head" type="CharacterBody2D"]
+
+[node name="RayLeft" type="RayCast2D" parent="."]
+
+[node name="RayForward" type="RayCast2D" parent="."]
+
+[node name="RayRight" type="RayCast2D" parent="."]
