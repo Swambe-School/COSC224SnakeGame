@@ -1,0 +1,53 @@
+[gd_scene load_steps=8 format=3 uid="uid://dcjilq6uxfh6s"]
+
+[ext_resource type="Texture2D" uid="uid://bufwqujb8sepr" path="res://assets/sprites/snake-sprites.png" id="1_q70uc"]
+[ext_resource type="Script" path="res://assets/scripts/SnakePc.cs" id="1_woqnw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_74kko"]
+atlas = ExtResource("1_q70uc")
+region = Rect2(0, 0, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_knhdy"]
+atlas = ExtResource("1_q70uc")
+region = Rect2(0, 42, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xf4p3"]
+atlas = ExtResource("1_q70uc")
+region = Rect2(0, 84, 42, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ddab1"]
+atlas = ExtResource("1_q70uc")
+region = Rect2(0, 42, 42, 42)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_88t1n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_74kko")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_knhdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xf4p3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ddab1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="SnakePc" type="Node2D"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+motion_mode = 1
+script = ExtResource("1_woqnw")
+delaySeconds = 0.25
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+texture_filter = 2
+sprite_frames = SubResource("SpriteFrames_88t1n")
+autoplay = "default"
+frame_progress = 0.268565

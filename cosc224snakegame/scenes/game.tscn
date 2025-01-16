@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://bfknd0ksxsuje"]
+[gd_scene load_steps=7 format=3 uid="uid://bfknd0ksxsuje"]
 
 [ext_resource type="Texture2D" uid="uid://bjr5o1s0qt1f7" path="res://assets/sprites/world_tileset.png" id="1_xwlkw"]
 [ext_resource type="Script" path="res://scripts/TileMap.cs" id="2_6qe6g"]
+[ext_resource type="PackedScene" uid="uid://dcjilq6uxfh6s" path="res://scenes/snakePC.tscn" id="3_fdo72"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ugftg"]
 
@@ -185,3 +186,6 @@ script = ExtResource("2_6qe6g")
 [node name="Camera2D" type="Camera2D" parent="."]
 position = Vector2(149, 137)
 position_smoothing_enabled = true
+
+[node name="SnakePc" parent="." instance=ExtResource("3_fdo72")]
+position = Vector2(148, 138)
