@@ -44,9 +44,10 @@ animations = [{
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 motion_mode = 1
 script = ExtResource("1_woqnw")
+delaySeconds = 0.25
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(625, 228)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+texture_filter = 2
 sprite_frames = SubResource("SpriteFrames_88t1n")
 autoplay = "default"
 frame_progress = 0.268565
