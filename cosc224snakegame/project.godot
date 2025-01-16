@@ -11,7 +11,9 @@ config_version=5
 [application]
 
 config/name="COSC224SnakeGame"
-run/main_scene="res://scenes/snakePC.tscn"
+
+run/main_scene="res://scenes/game.tscn"
+
 config/features=PackedStringArray("4.3", "C#", "Mobile")
 config/icon="res://icon.svg"
 
