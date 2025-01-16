@@ -1,0 +1,66 @@
+[gd_scene load_steps=2 format=3 uid="uid://co6ch6m2b76hw"]
+
+[ext_resource type="Script" path="res://scripts/menuScripts/MenuController.cs" id="1_6nl1h"]
+
+[node name="MainMenu" type="Node2D"]
+script = ExtResource("1_6nl1h")
+
+[node name="MainCam" type="Camera2D" parent="."]
+
+[node name="Screen" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_left = -579.0
+offset_top = -325.0
+offset_right = 577.0
+offset_bottom = 325.0
+
+[node name="MenuStack" type="VBoxContainer" parent="Screen"]
+layout_mode = 0
+offset_right = 1157.0
+offset_bottom = 648.0
+theme_override_constants/separation = 200
+
+[node name="CenterContainer" type="CenterContainer" parent="Screen/MenuStack"]
+layout_mode = 2
+
+[node name="SnakeTitle" type="RichTextLabel" parent="Screen/MenuStack/CenterContainer"]
+custom_minimum_size = Vector2(450, 0)
+layout_mode = 2
+theme_override_font_sizes/normal_font_size = 74
+text = "Snake Game"
+fit_content = true
+
+[node name="ButtonStack" type="VBoxContainer" parent="Screen/MenuStack"]
+layout_mode = 2
+theme_override_constants/separation = 40
+
+[node name="PlayButton" type="Button" parent="Screen/MenuStack/ButtonStack"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "          Play Game          "
+
+[node name="SettingsButton" type="Button" parent="Screen/MenuStack/ButtonStack"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "            Settings             "
+
+[node name="QuitButton" type="Button" parent="Screen/MenuStack/ButtonStack"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 32
+text = "               Quit                 "
+
+[node name="Button" type="Button" parent="Screen"]
+layout_mode = 0
+offset_left = 998.0
+offset_top = 522.0
+offset_right = 1102.0
+offset_bottom = 612.0
+theme_override_font_sizes/font_size = 24
+text = "Cash
+Shop"
+
+[connection signal="pressed" from="Screen/MenuStack/ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
