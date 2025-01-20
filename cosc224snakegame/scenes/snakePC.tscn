@@ -3,36 +3,36 @@
 [ext_resource type="Texture2D" uid="uid://bufwqujb8sepr" path="res://assets/sprites/snake-sprites.png" id="1_q70uc"]
 [ext_resource type="Script" path="res://assets/scripts/SnakePc.cs" id="1_woqnw"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_74kko"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3mteq"]
 atlas = ExtResource("1_q70uc")
-region = Rect2(0, 0, 42, 42)
+region = Rect2(0, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_knhdy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vcbpi"]
 atlas = ExtResource("1_q70uc")
-region = Rect2(0, 42, 42, 42)
+region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_xf4p3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y2c15"]
 atlas = ExtResource("1_q70uc")
-region = Rect2(0, 84, 42, 42)
+region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ddab1"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ena7o"]
 atlas = ExtResource("1_q70uc")
-region = Rect2(0, 42, 42, 42)
+region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_88t1n"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_74kko")
+"texture": SubResource("AtlasTexture_3mteq")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_knhdy")
+"texture": SubResource("AtlasTexture_vcbpi")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_xf4p3")
+"texture": SubResource("AtlasTexture_y2c15")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ddab1")
+"texture": SubResource("AtlasTexture_ena7o")
 }],
 "loop": true,
 "name": &"default",
@@ -51,10 +51,10 @@ _rayDown = NodePath("RayCastDown")
 _rayLeft = NodePath("RayCastLeft")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
-texture_filter = 2
+texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_88t1n")
 autoplay = "default"
-frame_progress = 0.268565
+frame_progress = 0.318981
 
 [node name="RayCastUp" type="RayCast2D" parent="CharacterBody2D"]
 target_position = Vector2(0, -16)
