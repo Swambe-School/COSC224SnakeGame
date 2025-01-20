@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bfknd0ksxsuje"]
 
-[ext_resource type="Texture2D" uid="uid://bjr5o1s0qt1f7" path="res://assets/Sprites/world_tileset.png" id="1_xwlkw"]
+[ext_resource type="Texture2D" uid="uid://bjr5o1s0qt1f7" path="res://assets/sprites/world_tileset.png" id="1_xwlkw"]
 [ext_resource type="Script" path="res://scripts/TileMap.cs" id="2_6qe6g"]
 [ext_resource type="PackedScene" uid="uid://dcjilq6uxfh6s" path="res://scenes/snakePC.tscn" id="3_fdo72"]
 
