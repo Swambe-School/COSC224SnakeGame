@@ -42,9 +42,10 @@ animations = [{
 [node name="SnakePc" type="Node2D"]
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_rayUp", "_rayRight", "_rayDown", "_rayLeft")]
+z_index = 5
 motion_mode = 1
 script = ExtResource("1_woqnw")
-delaySeconds = 0.25
+delaySeconds = 0.08
 _rayUp = NodePath("RayCastUp")
 _rayRight = NodePath("RayCastRight")
 _rayDown = NodePath("RayCastDown")
@@ -57,17 +58,17 @@ autoplay = "default"
 frame_progress = 0.318981
 
 [node name="RayCastUp" type="RayCast2D" parent="CharacterBody2D"]
-target_position = Vector2(0, -16)
+target_position = Vector2(0, -15)
 collide_with_areas = true
 
 [node name="RayCastRight" type="RayCast2D" parent="CharacterBody2D"]
-target_position = Vector2(16, 0)
+target_position = Vector2(15, 0)
 collide_with_areas = true
 
 [node name="RayCastDown" type="RayCast2D" parent="CharacterBody2D"]
-target_position = Vector2(0, 16)
+target_position = Vector2(0, 15)
 collide_with_areas = true
 
 [node name="RayCastLeft" type="RayCast2D" parent="CharacterBody2D"]
-target_position = Vector2(-16, 0)
+target_position = Vector2(-15, 0)
 collide_with_areas = true
