@@ -3,7 +3,8 @@ using System;
 
 public partial class SnakePc : CharacterBody2D
 {
-	private Sprite2D apple = (Sprite2D) ResourceLoader.Load<PackedScene>("res://scenes/apple.tscn").Instantiate();
+	[Export] private Sprite2D _apple;
+	[Export] private AnimatedSprite2D _headSprite;
 	private int score = 0;
 	private int lastDirection; //0 - not moving, 1 - up, 2 - right, 3 - down, 4 - left
 	private Vector2 playerPosition;
@@ -29,10 +30,9 @@ public partial class SnakePc : CharacterBody2D
 	public override void _Ready()
 	{
 		Random rand = new Random();
-		apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 17)) - 8, 16 * rand.Next(2, 17) - 8));
+		_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 17)) - 8, 16 * rand.Next(2, 17) - 8));
 		lastDirection = 0;
-		GetTree().Root.AddChild(apple);
-		
+		GD.Print("Apple");
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -81,21 +81,25 @@ public partial class SnakePc : CharacterBody2D
 		switch(lastDirection){
 			case 1://up
 				playerY += 16;
+				_headSprite.Rotation = 0;
 				CheckCollision(_rayDown);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 2://right
 				playerX += 16;
+				_headSprite.Rotation = Mathf.Pi * -0.5f;
 				CheckCollision(_rayRight);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 3://down
 				playerY -= 16;
+				_headSprite.Rotation = Mathf.Pi;
 				CheckCollision(_rayUp);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 4://left
 				playerX -= 16;
+				_headSprite.Rotation = Mathf.Pi * 0.5f;
 				CheckCollision(_rayLeft);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				
@@ -124,7 +128,7 @@ public partial class SnakePc : CharacterBody2D
 			score++;
 			GD.Print("Snake ate an apple! Score: " + score);
 			Random rand = new Random();
-			apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
+			_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
 		}
 	}
 }
