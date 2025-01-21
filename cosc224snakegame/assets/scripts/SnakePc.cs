@@ -3,6 +3,8 @@ using System;
 
 public partial class SnakePc : CharacterBody2D
 {
+	private Sprite2D apple = (Sprite2D) ResourceLoader.Load<PackedScene>("res://scenes/apple.tscn").Instantiate();
+	private int score = 0;
 	private int lastDirection; //0 - not moving, 1 - up, 2 - right, 3 - down, 4 - left
 	private Vector2 playerPosition;
 	[Export]
@@ -26,7 +28,11 @@ public partial class SnakePc : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		Random rand = new Random();
+		apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 17)) - 8, 16 * rand.Next(2, 17) - 8));
 		lastDirection = 0;
+		GetTree().Root.AddChild(apple);
+		
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -115,7 +121,10 @@ public partial class SnakePc : CharacterBody2D
 		else
 		{
 			//hit a fruit or so snake body
-			GD.Print("Snake hit something else");
+			score++;
+			GD.Print("Snake ate an apple! Score: " + score);
+			Random rand = new Random();
+			apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
 		}
 	}
 }
