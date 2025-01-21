@@ -1,25 +1,25 @@
-[gd_scene load_steps=8 format=3 uid="uid://dcjilq6uxfh6s"]
+[gd_scene load_steps=8 format=3 uid="uid://dwu2cf5ldk2dt"]
 
-[ext_resource type="Texture2D" uid="uid://bufwqujb8sepr" path="res://assets/sprites/snake-sprites.png" id="1_q70uc"]
-[ext_resource type="Script" path="res://assets/scripts/SnakePc.cs" id="1_woqnw"]
+[ext_resource type="Script" path="res://assets/scripts/SnakePc.cs" id="1_o5gg6"]
+[ext_resource type="Texture2D" uid="uid://bufwqujb8sepr" path="res://assets/Sprites/snake-sprites.png" id="2_hulqw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3mteq"]
-atlas = ExtResource("1_q70uc")
+atlas = ExtResource("2_hulqw")
 region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vcbpi"]
-atlas = ExtResource("1_q70uc")
+atlas = ExtResource("2_hulqw")
 region = Rect2(0, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y2c15"]
-atlas = ExtResource("1_q70uc")
+atlas = ExtResource("2_hulqw")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ena7o"]
-atlas = ExtResource("1_q70uc")
+atlas = ExtResource("2_hulqw")
 region = Rect2(0, 16, 16, 16)
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_88t1n"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_srjhm"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -39,36 +39,34 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="SnakePc" type="Node2D"]
-
-[node name="CharacterBody2D" type="CharacterBody2D" parent="." node_paths=PackedStringArray("_rayUp", "_rayRight", "_rayDown", "_rayLeft")]
+[node name="Snake" type="CharacterBody2D" node_paths=PackedStringArray("_headSprite", "_rayUp", "_rayRight", "_rayDown", "_rayLeft")]
 z_index = 5
 motion_mode = 1
-script = ExtResource("1_woqnw")
+script = ExtResource("1_o5gg6")
+_headSprite = NodePath("AnimatedSprite2D")
 delaySeconds = 0.16
 _rayUp = NodePath("RayCastUp")
 _rayRight = NodePath("RayCastRight")
 _rayDown = NodePath("RayCastDown")
 _rayLeft = NodePath("RayCastLeft")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 texture_filter = 1
-sprite_frames = SubResource("SpriteFrames_88t1n")
+sprite_frames = SubResource("SpriteFrames_srjhm")
 autoplay = "default"
-frame_progress = 0.318981
 
-[node name="RayCastUp" type="RayCast2D" parent="CharacterBody2D"]
+[node name="RayCastUp" type="RayCast2D" parent="."]
 target_position = Vector2(0, -15)
 collide_with_areas = true
 
-[node name="RayCastRight" type="RayCast2D" parent="CharacterBody2D"]
+[node name="RayCastRight" type="RayCast2D" parent="."]
 target_position = Vector2(15, 0)
 collide_with_areas = true
 
-[node name="RayCastDown" type="RayCast2D" parent="CharacterBody2D"]
+[node name="RayCastDown" type="RayCast2D" parent="."]
 target_position = Vector2(0, 15)
 collide_with_areas = true
 
-[node name="RayCastLeft" type="RayCast2D" parent="CharacterBody2D"]
+[node name="RayCastLeft" type="RayCast2D" parent="."]
 target_position = Vector2(-15, 0)
 collide_with_areas = true
