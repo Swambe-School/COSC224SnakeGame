@@ -10,7 +10,6 @@ script = ExtResource("1_6nl1h")
 
 [node name="MainCam" type="Camera2D" parent="."]
 z_index = 4
-zoom = Vector2(1.6, 1.6)
 
 [node name="Screen" type="Control" parent="."]
 z_index = 4
@@ -82,3 +81,4 @@ Shop"
 position = Vector2(-611, -371)
 
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="Screen/MenuStack/ButtonStack/QuitButton" to="." method="_on_quit_button_pressed"]

@@ -22,4 +22,8 @@ public partial class MenuController : Node
 		camera.Enabled = false;
 		this.QueueFree();
 	}
+	public void _on_quit_button_pressed()
+	{
+		GetTree().Quit();
+	}
 }
