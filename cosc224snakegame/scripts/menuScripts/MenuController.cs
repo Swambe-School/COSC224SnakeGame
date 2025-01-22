@@ -20,5 +20,6 @@ public partial class MenuController : Node
 		Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game.tscn").Instantiate();
 		GetTree().Root.AddChild(scene); 
 		camera.Enabled = false;
+		this.QueueFree();
 	}
 }
