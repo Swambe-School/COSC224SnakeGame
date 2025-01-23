@@ -1,8 +1,12 @@
 using Godot;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 public partial class SnakePc : CharacterBody2D
 {
+	private LinkedList<BodyPart> _snakeBodySegments;
+	private Vector2 _lastPosition;
 	[Export] private Sprite2D _apple;
 	[Export] private AnimatedSprite2D _headSprite;
 	private int score = 0;
@@ -29,6 +33,8 @@ public partial class SnakePc : CharacterBody2D
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready()
 	{
+		_snakeBodySegments = new();
+
 		Random rand = new Random();
 		_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 17)) - 8, 16 * rand.Next(2, 17) - 8));
 		lastDirection = 0;
@@ -74,45 +80,48 @@ public partial class SnakePc : CharacterBody2D
 			moveTimer = 0f;
 		}
 		Vector2 dir = GetInput();
-		int pixels = 16;
+		bool ate = false;
 		float playerX = GlobalPosition.X;
 		float playerY = GlobalPosition.Y;
+
+		_lastPosition = new Vector2(playerX, playerY);
 			//auto move
 		switch(lastDirection){
 			case 1://up
 				playerY += 16;
 				_headSprite.Rotation = 0;
-				CheckCollision(_rayDown);
+				ate = CheckCollision(_rayDown);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 2://right
 				playerX += 16;
 				_headSprite.Rotation = Mathf.Pi * -0.5f;
-				CheckCollision(_rayRight);
+				ate = CheckCollision(_rayRight);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 3://down
 				playerY -= 16;
 				_headSprite.Rotation = Mathf.Pi;
-				CheckCollision(_rayUp);
+				ate = CheckCollision(_rayUp);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 4://left
 				playerX -= 16;
 				_headSprite.Rotation = Mathf.Pi * 0.5f;
-				CheckCollision(_rayLeft);
+				ate = CheckCollision(_rayLeft);
 				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				
 				break;
 			default:
 				break;
 		}
+		UpdateBodySegments(_lastPosition, ate);
 	}
-	private void CheckCollision(RayCast2D ray)
+	private bool CheckCollision(RayCast2D ray)
 	{
 		if (!ray.IsColliding())
 		{
-			return;
+			return false;
 		}
 		//collision occured
 		GodotObject obj = ray.GetCollider();
@@ -121,6 +130,7 @@ public partial class SnakePc : CharacterBody2D
 			//kill player
 			GetTree().Paused = true;
 			GD.Print("Snake hit a wall");
+			return false;
 		}
 		else
 		{
@@ -129,6 +139,48 @@ public partial class SnakePc : CharacterBody2D
 			GD.Print("Snake ate an apple! Score: " + score);
 			Random rand = new Random();
 			_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
+			return true;
+		}
+	}
+
+	private void UpdateBodySegments(Vector2 lastPos, bool ate)
+	{
+
+		if(_snakeBodySegments.Count == 0)
+		{//add tail
+			BodyPart bodyPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
+			//this.AddChild(bodyPart);
+			bodyPart.Init(lastPos);
+			_snakeBodySegments.AddFirst(bodyPart);
+		}
+		if(ate)
+		{
+			BodyPart firstPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
+			//this.AddChild(firstPart);
+			
+			firstPart.Init(lastPos);
+			firstPart.setChild(_snakeBodySegments.First<BodyPart>());
+			_snakeBodySegments.First<BodyPart>().setParent(firstPart);
+			_snakeBodySegments.AddFirst(firstPart);
+		}
+		else if(_snakeBodySegments.Count == 1)
+		{//has only a tail
+			_snakeBodySegments.First<BodyPart>().Init(lastPos);
+		}
+		else
+		{//has 2 or more segments
+			//Remove Tail
+			BodyPart lastPart = _snakeBodySegments.Last<BodyPart>();
+			_snakeBodySegments.RemoveLast();
+			_snakeBodySegments.Last<BodyPart>().setChild(null);
+			_snakeBodySegments.Last<BodyPart>().updateSprite();//update to now have tail
+			lastPart.setParent(null);
+
+			//Free Segment "lastPart" place as first body segment
+			lastPart.Init(lastPos);
+			lastPart.setChild(_snakeBodySegments.First<BodyPart>());
+			_snakeBodySegments.First<BodyPart>().setParent(lastPart);
+			_snakeBodySegments.AddFirst(lastPart);
 		}
 	}
 }

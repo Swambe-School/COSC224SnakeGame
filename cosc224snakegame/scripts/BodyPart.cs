@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class BodyPart : Node
+public partial class BodyPart : Area2D
 {
 	private int dirTo, dirFrom; //1 = up, 2 = right, -1 = down, -2 = left
 	private BodyPart parent;
@@ -15,6 +15,11 @@ public partial class BodyPart : Node
 		parent = null;
 		child = null;
 		updateSprite();
+	}
+	public void Init(Vector2 position)
+	{
+		this.SetGlobalPosition(position);
+
 	}
 	public void setParent(BodyPart p){
 		this.parent = p;

@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://d2ble3cw6g4e5"
-path="res://.godot/imported/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png-5c1bba02b08b7972f151f0abbdad7ef5.ctex"
+path="res://.godot/imported/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png-d5ca79ed88f7593c248224377f2f0872.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png"
-dest_files=["res://.godot/imported/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png-5c1bba02b08b7972f151f0abbdad7ef5.ctex"]
+source_file="res://assets/Sprites/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png"
+dest_files=["res://.godot/imported/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png-d5ca79ed88f7593c248224377f2f0872.ctex"]
 
 [params]
 
