@@ -11,10 +11,9 @@ public partial class BodyPart : Area2D
 	public override void _Ready()
 	{
 		dirTo = -2;
-		dirFrom = 0;
+		dirFrom = 2;
 		parent = null;
 		child = null;
-		updateSprite();
 	}
 	public void Init(Vector2 position)
 	{
@@ -33,8 +32,9 @@ public partial class BodyPart : Area2D
 		//get pos
 		float myX = this.GlobalPosition.X;
 		float myY = this.GlobalPosition.Y;
-		float parentX = this.GlobalPosition.X;
-		float parentY = this.GlobalPosition.Y;
+		float parentX = parent.GlobalPosition.X;
+		float parentY = parent.GlobalPosition.Y;
+
 		//set dirTo
 		if(myX == parentX){
 			if(parentY < myY){
@@ -51,8 +51,8 @@ public partial class BodyPart : Area2D
 		}
 		if(child != null){
 			//set dirFrom
-			float childX = this.GlobalPosition.X;
-			float childY = this.GlobalPosition.Y;
+			float childX = child.GlobalPosition.X;
+			float childY = child.GlobalPosition.Y;
 			if(myX == childX){
 				if(childY < myY){
 					dirFrom = 1;
@@ -66,6 +66,7 @@ public partial class BodyPart : Area2D
 					dirFrom = 2;
 				}
 			}
+			
 		}
 	}
 	public void updateSprite(){
