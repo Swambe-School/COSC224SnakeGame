@@ -145,21 +145,23 @@ public partial class SnakePc : CharacterBody2D
 
 	private void UpdateBodySegments(Vector2 lastPos, bool ate)
 	{
-
+		GD.Print(_snakeBodySegments.ToString() + $"Length: {_snakeBodySegments.Count}");
 		if(_snakeBodySegments.Count == 0)
 		{//add tail
 			BodyPart bodyPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
-			//this.AddChild(bodyPart);
+			GetNode<Node2D>("../").AddChild(bodyPart);
 			bodyPart.Init(lastPos);
+			bodyPart.setParent(this);
 			_snakeBodySegments.AddFirst(bodyPart);
 		}
 		if(ate)
 		{
 			BodyPart firstPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
-			//this.AddChild(firstPart);
+			GetNode<Node2D>("../").AddChild(firstPart);
 			
 			firstPart.Init(lastPos);
 			firstPart.setChild(_snakeBodySegments.First<BodyPart>());
+			firstPart.setParent(this);
 			_snakeBodySegments.First<BodyPart>().setParent(firstPart);
 			_snakeBodySegments.AddFirst(firstPart);
 		}
@@ -179,6 +181,7 @@ public partial class SnakePc : CharacterBody2D
 			//Free Segment "lastPart" place as first body segment
 			lastPart.Init(lastPos);
 			lastPart.setChild(_snakeBodySegments.First<BodyPart>());
+			lastPart.setParent(this);
 			_snakeBodySegments.First<BodyPart>().setParent(lastPart);
 			_snakeBodySegments.AddFirst(lastPart);
 		}

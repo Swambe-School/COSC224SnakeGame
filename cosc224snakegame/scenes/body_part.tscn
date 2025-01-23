@@ -60,6 +60,7 @@ size = Vector2(15, 15)
 script = ExtResource("1_8yyt8")
 
 [node name="BodySprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_n8u3c")
 frame = 2

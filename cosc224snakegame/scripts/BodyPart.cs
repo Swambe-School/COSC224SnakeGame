@@ -4,8 +4,8 @@ using System;
 public partial class BodyPart : Area2D
 {
 	private int dirTo, dirFrom; //1 = up, 2 = right, -1 = down, -2 = left
-	private BodyPart parent;
-	private BodyPart child;
+	private Node2D parent;
+	private Node2D child;
 	// Called when the node enters the scene tree for the first time.
 	
 	public override void _Ready()
@@ -21,19 +21,19 @@ public partial class BodyPart : Area2D
 		this.SetGlobalPosition(position);
 
 	}
-	public void setParent(BodyPart p){
+	public void setParent(Node2D p){
 		this.parent = p;
-		dirTo = p.dirFrom;
+		//dirTo = p.dirFrom;
 	}
-	public void setChild(BodyPart p){
-		dirFrom = p.dirTo;
+	public void setChild(Node2D p){
+		//dirFrom = p.dirTo;
 		this.child = p;
 	}
 	public void updateSprite(){
 		//TEST CASE # 1 JESSE
 		AnimatedSprite2D mySprite = GetNode<AnimatedSprite2D>("BodySprite");
 		if(dirTo == dirFrom){
-			dirTo = parent.dirFrom;
+			//dirTo = parent.dirFrom;
 			dirFrom = -dirTo;
 		}
 		//check dirFrom and dirTo to update to proper sprite
