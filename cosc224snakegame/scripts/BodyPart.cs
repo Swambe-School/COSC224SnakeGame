@@ -11,7 +11,7 @@ public partial class BodyPart : Area2D
 	public override void _Ready()
 	{
 		dirTo = -2;
-		dirFrom = 2;
+		dirFrom = 0;
 		parent = null;
 		child = null;
 		updateSprite();
@@ -29,7 +29,47 @@ public partial class BodyPart : Area2D
 		//dirFrom = p.dirTo;
 		this.child = p;
 	}
+	public void updateDirections(){
+		//get pos
+		float myX = this.GlobalPosition.X;
+		float myY = this.GlobalPosition.Y;
+		float parentX = this.GlobalPosition.X;
+		float parentY = this.GlobalPosition.Y;
+		//set dirTo
+		if(myX == parentX){
+			if(parentY < myY){
+				dirTo = 1;
+			}else{
+				dirTo = -1;
+			}
+		}else{
+			if(parentX < myX){
+				dirTo = -2;
+			}else{
+				dirTo = 2;
+			}
+		}
+		if(child != null){
+			//set dirFrom
+			float childX = this.GlobalPosition.X;
+			float childY = this.GlobalPosition.Y;
+			if(myX == childX){
+				if(childY < myY){
+					dirFrom = 1;
+				}else{
+					dirFrom = -1;
+				}
+			}else{
+				if(childX < myX){
+					dirFrom = -2;
+				}else{
+					dirFrom = 2;
+				}
+			}
+		}
+	}
 	public void updateSprite(){
+		updateDirections();
 		//TEST CASE # 1 JESSE
 		AnimatedSprite2D mySprite = GetNode<AnimatedSprite2D>("BodySprite");
 		if(dirTo == dirFrom){
