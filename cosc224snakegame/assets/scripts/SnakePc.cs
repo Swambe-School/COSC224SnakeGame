@@ -115,7 +115,10 @@ public partial class SnakePc : CharacterBody2D
 			default:
 				break;
 		}
-		UpdateBodySegments(_lastPosition, ate);
+		if(lastDirection != 0)
+		{
+			UpdateBodySegments(_lastPosition, ate);
+		}
 	}
 	private bool CheckCollision(RayCast2D ray)
 	{
@@ -130,7 +133,12 @@ public partial class SnakePc : CharacterBody2D
 			//kill player
 			GetTree().Paused = true;
 			GD.Print("Snake hit a wall");
-			return false;
+		}
+		else if(obj is BodyPart bodyPart)
+		{
+			//kill player
+			GetTree().Paused = true;
+			GD.Print("Snake hit it's self");
 		}
 		else
 		{
@@ -141,6 +149,7 @@ public partial class SnakePc : CharacterBody2D
 			_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
 			return true;
 		}
+		return false;
 	}
 
 	private void UpdateBodySegments(Vector2 lastPos, bool ate)
@@ -153,6 +162,8 @@ public partial class SnakePc : CharacterBody2D
 			bodyPart.Init(lastPos);
 			bodyPart.setParent(this);
 			_snakeBodySegments.AddFirst(bodyPart);
+
+			bodyPart.updateSprite();
 		}
 		if(ate)
 		{
@@ -164,10 +175,14 @@ public partial class SnakePc : CharacterBody2D
 			firstPart.setParent(this);
 			_snakeBodySegments.First<BodyPart>().setParent(firstPart);
 			_snakeBodySegments.AddFirst(firstPart);
+
+			firstPart.updateSprite();
 		}
 		else if(_snakeBodySegments.Count == 1)
 		{//has only a tail
 			_snakeBodySegments.First<BodyPart>().Init(lastPos);
+
+			_snakeBodySegments.First<BodyPart>().updateSprite();
 		}
 		else
 		{//has 2 or more segments
@@ -178,12 +193,16 @@ public partial class SnakePc : CharacterBody2D
 			_snakeBodySegments.Last<BodyPart>().updateSprite();//update to now have tail
 			lastPart.setParent(null);
 
+			_snakeBodySegments.Last<BodyPart>().updateSprite();
+
 			//Free Segment "lastPart" place as first body segment
 			lastPart.Init(lastPos);
 			lastPart.setChild(_snakeBodySegments.First<BodyPart>());
 			lastPart.setParent(this);
 			_snakeBodySegments.First<BodyPart>().setParent(lastPart);
 			_snakeBodySegments.AddFirst(lastPart);
+
+			lastPart.updateSprite();
 		}
 	}
 }
