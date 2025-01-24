@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://co6ch6m2b76hw"]
+[gd_scene load_steps=6 format=3 uid="uid://co6ch6m2b76hw"]
 
 [ext_resource type="Script" path="res://scripts/menuScripts/MenuController.cs" id="1_6nl1h"]
 [ext_resource type="FontFile" uid="uid://1q76qvrv5h0f" path="res://assets/Fonts/ARCADECLASSIC.TTF" id="2_8r115"]
 [ext_resource type="Script" path="res://scripts/menuScripts/TitleEffects.cs" id="3_jt77u"]
 [ext_resource type="PackedScene" uid="uid://c6ta26f4cfoq2" path="res://scenes/scrolling_background.tscn" id="4_ldbnc"]
+[ext_resource type="AudioStream" uid="uid://deghgjeqs6y7w" path="res://assets/sounds/460. Menu.wav" id="5_fe3f0"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_6nl1h")
@@ -81,6 +82,9 @@ Shop"
 position = Vector2(-611, -371)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_fe3f0")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/QuitButton" to="." method="_on_quit_button_pressed"]
