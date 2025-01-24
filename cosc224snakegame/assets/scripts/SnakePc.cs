@@ -190,10 +190,7 @@ public partial class SnakePc : CharacterBody2D
 			BodyPart lastPart = _snakeBodySegments.Last<BodyPart>();
 			_snakeBodySegments.RemoveLast();
 			_snakeBodySegments.Last<BodyPart>().setChild(null);
-			_snakeBodySegments.Last<BodyPart>().updateSprite();//update to now have tail
 			lastPart.setParent(null);
-
-			_snakeBodySegments.Last<BodyPart>().updateSprite();
 
 			//Free Segment "lastPart" place as first body segment
 			lastPart.Init(lastPos);
@@ -202,6 +199,7 @@ public partial class SnakePc : CharacterBody2D
 			_snakeBodySegments.First<BodyPart>().setParent(lastPart);
 			_snakeBodySegments.AddFirst(lastPart);
 
+			_snakeBodySegments.Last<BodyPart>().updateSprite();//update to now have tail
 			lastPart.updateSprite();
 		}
 	}
