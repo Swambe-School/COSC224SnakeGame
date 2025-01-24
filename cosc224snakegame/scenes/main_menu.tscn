@@ -80,5 +80,7 @@ Shop"
 [node name="ScrollingBackground" parent="." instance=ExtResource("4_ldbnc")]
 position = Vector2(-611, -371)
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/QuitButton" to="." method="_on_quit_button_pressed"]

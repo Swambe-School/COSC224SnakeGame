@@ -1,18 +1,28 @@
-[gd_scene load_steps=3 format=3 uid="uid://cuyeow8ac7wg8"]
+[gd_scene load_steps=5 format=3 uid="uid://cuyeow8ac7wg8"]
 
 [ext_resource type="Texture2D" uid="uid://d2ble3cw6g4e5" path="res://assets/sprites/an-8-bit-retro-styled-pixel-art-illustration-of-a-red-apple-free-png.png" id="1_eq5qk"]
+[ext_resource type="Script" path="res://scripts/apple_pickup.gd" id="2_m34s4"]
+[ext_resource type="AudioStream" uid="uid://cfw2ykv2g5bbc" path="res://assets/sounds/random.wav" id="3_7ouwh"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_xsaso"]
-radius = 25000.0
+radius = 20000.0
 
 [node name="apple" type="Sprite2D"]
 z_index = 1
 texture_filter = 1
 scale = Vector2(0.02, 0.02)
 texture = ExtResource("1_eq5qk")
+script = ExtResource("2_m34s4")
 
 [node name="Area2D" type="Area2D" parent="."]
 scale = Vector2(0.02, 0.02)
 
+[node name="Eat" type="AudioStreamPlayer" parent="Area2D"]
+stream = ExtResource("3_7ouwh")
+volume_db = -30.0
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+scale = Vector2(1, 1)
 shape = SubResource("CircleShape2D_xsaso")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
