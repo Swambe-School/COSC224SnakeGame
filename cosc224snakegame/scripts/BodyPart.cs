@@ -14,7 +14,6 @@ public partial class BodyPart : Area2D
 		dirFrom = 2;
 		parent = null;
 		child = null;
-		updateSprite();
 	}
 	public void Init(Vector2 position)
 	{
@@ -29,7 +28,49 @@ public partial class BodyPart : Area2D
 		//dirFrom = p.dirTo;
 		this.child = p;
 	}
+	public void updateDirections(){
+		//get pos
+		float myX = this.GlobalPosition.X;
+		float myY = this.GlobalPosition.Y;
+		float parentX = parent.GlobalPosition.X;
+		float parentY = parent.GlobalPosition.Y;
+
+		//set dirTo
+		if(myX == parentX){
+			if(parentY < myY){
+				dirTo = 1;
+			}else{
+				dirTo = -1;
+			}
+		}else{
+			if(parentX < myX){
+				dirTo = -2;
+			}else{
+				dirTo = 2;
+			}
+		}
+		if(child != null){
+			//set dirFrom
+			float childX = child.GlobalPosition.X;
+			float childY = child.GlobalPosition.Y;
+			if(myX == childX){
+				if(childY < myY){
+					dirFrom = 1;
+				}else{
+					dirFrom = -1;
+				}
+			}else{
+				if(childX < myX){
+					dirFrom = -2;
+				}else{
+					dirFrom = 2;
+				}
+			}
+			
+		}
+	}
 	public void updateSprite(){
+		updateDirections();
 		//TEST CASE # 1 JESSE
 		AnimatedSprite2D mySprite = GetNode<AnimatedSprite2D>("BodySprite");
 		if(dirTo == dirFrom){
