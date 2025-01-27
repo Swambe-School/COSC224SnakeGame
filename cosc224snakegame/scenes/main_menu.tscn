@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://1q76qvrv5h0f" path="res://assets/Fonts/ARCADECLASSIC.TTF" id="2_8r115"]
 [ext_resource type="Script" path="res://scripts/menuScripts/TitleEffects.cs" id="3_jt77u"]
 [ext_resource type="PackedScene" uid="uid://c6ta26f4cfoq2" path="res://scenes/scrolling_background.tscn" id="4_ldbnc"]
-[ext_resource type="AudioStream" uid="uid://deghgjeqs6y7w" path="res://assets/sounds/460. Menu.wav" id="5_fe3f0"]
+[ext_resource type="AudioStream" uid="uid://bkr52xjsh3y3v" path="res://assets/sounds/460. Menu.mp3" id="5_pflrd"]
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource("1_6nl1h")
@@ -82,7 +82,7 @@ Shop"
 position = Vector2(-611, -371)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_fe3f0")
+stream = ExtResource("5_pflrd")
 volume_db = -10.0
 autoplay = true
 

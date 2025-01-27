@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://scripts/TileMap.cs" id="2_6qe6g"]
 [ext_resource type="PackedScene" uid="uid://dwu2cf5ldk2dt" path="res://scenes/snake.tscn" id="3_h42j2"]
 [ext_resource type="PackedScene" uid="uid://cuyeow8ac7wg8" path="res://scenes/apple.tscn" id="4_fvrx0"]
-[ext_resource type="AudioStream" uid="uid://c0bp0h2pktwb" path="res://assets/sounds/459. Snake.wav" id="5_alhed"]
+[ext_resource type="AudioStream" uid="uid://c5qp3iyodqag0" path="res://assets/sounds/459. Snake.mp3" id="5_jduts"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ugftg"]
 
@@ -199,6 +199,6 @@ _apple = NodePath("../apple")
 position = Vector2(152, 152)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("5_alhed")
+stream = ExtResource("5_jduts")
 volume_db = -15.0
 autoplay = true
