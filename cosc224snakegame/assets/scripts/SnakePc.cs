@@ -121,12 +121,17 @@ public partial class SnakePc : CharacterBody2D
 			//kill player
 			GetTree().Paused = true;
 			GD.Print("Snake hit a wall");
+			Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
+			GetTree().Root.AddChild(scene); 
+			GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
+			GetParent().QueueFree();
 		}
 		else
 		{
 			//hit a fruit or so snake body
-			score++;
-			GD.Print("Snake ate an apple! Score: " + score);
+			GameController.getInstance().addPoint();
+			//score++
+			//GD.Print("Snake ate an apple! Score: " + score);
 			Random rand = new Random();
 			_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
 		}
