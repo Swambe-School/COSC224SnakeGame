@@ -1,0 +1,69 @@
+[gd_scene load_steps=11 format=3 uid="uid://u064cvht5xom"]
+
+[ext_resource type="Script" path="res://scripts/BodyPart.cs" id="1_8yyt8"]
+[ext_resource type="Texture2D" uid="uid://bufwqujb8sepr" path="res://assets/sprites/snake-sprites.png" id="2_8bn1q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c30ou"]
+atlas = ExtResource("2_8bn1q")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jk7sx"]
+atlas = ExtResource("2_8bn1q")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f5s60"]
+atlas = ExtResource("2_8bn1q")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqndm"]
+atlas = ExtResource("2_8bn1q")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6h8ye"]
+atlas = ExtResource("2_8bn1q")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s2n6e"]
+atlas = ExtResource("2_8bn1q")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_n8u3c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c30ou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jk7sx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f5s60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqndm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6h8ye")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s2n6e")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rmy3g"]
+size = Vector2(15, 15)
+
+[node name="BodyPart" type="Area2D"]
+script = ExtResource("1_8yyt8")
+
+[node name="BodySprite" type="AnimatedSprite2D" parent="."]
+z_index = 5
+texture_filter = 1
+sprite_frames = SubResource("SpriteFrames_n8u3c")
+frame = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_rmy3g")
