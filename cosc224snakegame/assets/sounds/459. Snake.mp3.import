@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://c5qp3iyodqag0"
+path="res://.godot/imported/459. Snake.mp3-d5df2b243551e252321f3d50d9f2f96f.mp3str"
+
+[deps]
+
+source_file="res://assets/sounds/459. Snake.mp3"
+dest_files=["res://.godot/imported/459. Snake.mp3-d5df2b243551e252321f3d50d9f2f96f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
