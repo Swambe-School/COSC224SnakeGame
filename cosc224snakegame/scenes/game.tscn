@@ -1,16 +1,16 @@
-[gd_scene load_steps=10 format=3 uid="uid://bfknd0ksxsuje"]
-
+[gd_scene load_steps=11 format=3 uid="uid://bfknd0ksxsuje"]
 
 [ext_resource type="Script" path="res://scripts/GameController.cs" id="1_3fkl0"]
 [ext_resource type="Texture2D" uid="uid://bjr5o1s0qt1f7" path="res://assets/sprites/world_tileset.png" id="1_xwlkw"]
 [ext_resource type="Script" path="res://scripts/TileMap.cs" id="2_6qe6g"]
 [ext_resource type="PackedScene" uid="uid://dwu2cf5ldk2dt" path="res://scenes/snake.tscn" id="3_h42j2"]
 [ext_resource type="PackedScene" uid="uid://cuyeow8ac7wg8" path="res://scenes/apple.tscn" id="4_fvrx0"]
-[ext_resource type="PackedScene" uid="uid://bss4ym36f6exh" path="res://scenes/score_ui.tscn" id="6_vl8mq"]
 [ext_resource type="AudioStream" uid="uid://c5qp3iyodqag0" path="res://assets/sounds/459. Snake.mp3" id="5_jduts"]
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ugftg"]
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ii57e"]
+[ext_resource type="PackedScene" uid="uid://bss4ym36f6exh" path="res://scenes/score_ui.tscn" id="7_ojaj3"]
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ugftg"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ii57e"]
 texture = ExtResource("1_xwlkw")
 0:0/0 = 0
 0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
@@ -198,8 +198,7 @@ position_smoothing_enabled = true
 
 [node name="Snake" parent="GameController" node_paths=PackedStringArray("_apple") instance=ExtResource("3_h42j2")]
 position = Vector2(152, 152)
-_apple = NodePath("../apple")
-
+_apple = NodePath("../../apple")
 
 [node name="apple" parent="." instance=ExtResource("4_fvrx0")]
 position = Vector2(152, 152)
@@ -209,3 +208,5 @@ stream = ExtResource("5_jduts")
 volume_db = -15.0
 autoplay = true
 
+[node name="ScoreUI" parent="." instance=ExtResource("7_ojaj3")]
+position = Vector2(433, 5)

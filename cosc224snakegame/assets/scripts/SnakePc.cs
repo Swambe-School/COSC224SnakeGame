@@ -141,9 +141,11 @@ public partial class SnakePc : CharacterBody2D
 
 			Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
 			GetTree().Root.AddChild(scene); 
+			GameOver tempScene = (GameOver) scene;
+			tempScene.setFinalScore(GameController.getInstance().getScore());
 			GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
-			GetParent().QueueFree();
-      
+			GetParent().GetParent().QueueFree();
+	  
 		}
 		else if(obj is BodyPart bodyPart)
 		{

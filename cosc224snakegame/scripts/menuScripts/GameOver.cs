@@ -33,5 +33,6 @@ public partial class GameOver : Node
 	public void setFinalScore(int score)
 	{
 		this.finalScore = score;
+		scoreLabel.Text = "Your score is: " + finalScore;
 	}
 }
