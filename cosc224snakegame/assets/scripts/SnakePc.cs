@@ -50,29 +50,49 @@ public partial class SnakePc : CharacterBody2D
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
 	{
+		//Jesse Refactor 2
+		
 		//Set last direction here:
 		Vector2 dir = GetInput();
-		if(dir.X != 0)
-		{
-			if(dir.X > 0)
+		//Jesse Refactor 1 (use switch statement to make code mroe readable)- and 2 (use better direction numbers to allow for control of a bug)!
+		if(dir.X != 0){
+			/*if(dir.X > 0)
 			{
 				lastDirection = 2;
 			}
 			else
 			{
 				lastDirection = 4;
+			}*/
+			if(Mathf.Abs(dir.X * 2) == Mathf.Abs(lastDirection)) return;
+			switch(dir.X){
+				case 1:
+					lastDirection = 2;
+					break;
+				case -1:
+					lastDirection = -2;
+					break;
+				default: break;
 			}
-		}
-		else if(dir.Y != 0)
-		{
-			if(dir.Y > 0)
+		}else if(dir.Y != 0){
+			if(Mathf.Abs(dir.Y) == Mathf.Abs(lastDirection)) return;
+			switch(dir.Y){
+				case 1:
+					lastDirection = 1;
+					break;
+				case -1:
+					lastDirection = -1;
+					break;
+				default: break;
+			}
+			/*if(dir.Y > 0)
 			{
 				lastDirection = 1;
 			}
 			else
 			{
 				lastDirection = 3;
-			}
+			}*/
 		}
 	}
 	public override void _PhysicsProcess(double delta){

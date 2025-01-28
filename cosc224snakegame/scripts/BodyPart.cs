@@ -22,10 +22,8 @@ public partial class BodyPart : Area2D
 	}
 	public void setParent(Node2D p){
 		this.parent = p;
-		//dirTo = p.dirFrom;
 	}
 	public void setChild(Node2D p){
-		//dirFrom = p.dirTo;
 		this.child = p;
 	}
 	public Node2D GetBodyParent()
@@ -42,7 +40,7 @@ public partial class BodyPart : Area2D
 		float myY = this.GlobalPosition.Y;
 		float parentX = parent.GlobalPosition.X;
 		float parentY = parent.GlobalPosition.Y;
-
+		
 		//set dirTo
 		if(myX == parentX){
 			if(parentY < myY){
@@ -78,11 +76,12 @@ public partial class BodyPart : Area2D
 		}
 	}
 	public void updateSprite(){
+		
 		updateDirections();
-		//TEST CASE # 1 JESSE
+		
 		AnimatedSprite2D mySprite = GetNode<AnimatedSprite2D>("BodySprite");
+		//JESSE TEST CASE #1 - make sure a bodySegment is not coming from and going to the same direction
 		if(dirTo == dirFrom){
-			//dirTo = parent.dirFrom;
 			dirFrom = -dirTo;
 		}
 		//check dirFrom and dirTo to update to proper sprite
@@ -92,6 +91,7 @@ public partial class BodyPart : Area2D
 			if(mySprite.Frame != 0){
 				mySprite.Frame = 0;
 			}
+
 			switch(dirTo){
 				case 1: //heading up, tail should point down
 					mySprite.Rotation = 0;
@@ -114,7 +114,9 @@ public partial class BodyPart : Area2D
 			if(dirTo == -dirFrom){
 				//this is a straight segment
 				//JESSE TEST CASE # 3 - make sure its showing a body sprite
-				mySprite.Frame = 5;
+				if(mySprite.Frame != 5){
+					mySprite.Frame = 5;
+				}
 				if(Mathf.Abs(dirTo) == 1){
 					mySprite.Rotation = 0;
 				}else{
@@ -123,7 +125,9 @@ public partial class BodyPart : Area2D
 			}else{
 				//this is a kinky segment
 				//JESSE TEST CASE # 4 - make sure its showing a kinked body sprite
-				mySprite.Frame = 1;
+				if(mySprite.Frame != 1){
+					mySprite.Frame = 1;
+				}
 				//UP <-> RIGHT
 				if(dirFrom == 1 || dirTo == 1){
 					if(dirFrom == 2 || dirTo == 2){
@@ -152,7 +156,10 @@ public partial class BodyPart : Area2D
 			}
 			
 		}
-		
+		//JESSE TEST CASE 5 - MAKE SURE ROTATION OBEYS OUR 4 DIRECTIONS
+		if((mySprite.Rotation != 0) && (mySprite.Rotation != Mathf.Pi) && (mySprite.Rotation != Mathf.Pi * 0.5f) && (mySprite.Rotation != Mathf.Pi * -0.5f)){
+			updateSprite();
+		}
 	}
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta)
