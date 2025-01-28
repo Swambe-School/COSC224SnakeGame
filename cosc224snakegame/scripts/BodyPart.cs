@@ -28,6 +28,14 @@ public partial class BodyPart : Area2D
 		//dirFrom = p.dirTo;
 		this.child = p;
 	}
+	public Node2D GetBodyParent()
+	{
+		return parent;
+	}
+	public Node2D GetBodyChild()
+	{
+		return child;
+	}
 	public void updateDirections(){
 		//get pos
 		float myX = this.GlobalPosition.X;

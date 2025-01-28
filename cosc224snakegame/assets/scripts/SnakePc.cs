@@ -39,7 +39,12 @@ public partial class SnakePc : CharacterBody2D
 		Random rand = new Random();
 		_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 17)) - 8, 16 * rand.Next(2, 17) - 8));
 		lastDirection = 0;
-		GD.Print("Apple");
+		
+		//Brandon Test Case #5 Assert that apple is not null
+		if(_apple == null)
+		{
+			GD.PrintErr("The apple is null and needs to be readded");
+		}
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -163,8 +168,14 @@ public partial class SnakePc : CharacterBody2D
 			GameController.getInstance().addPoint();
 			//score++
 			//GD.Print("Snake ate an apple! Score: " + score);
-			score++;
-			GD.Print("Snake ate an apple! Score: " + score);
+
+			//Brandon Test Case #4 Assert that the collision is with the apple 
+			if(obj is Node2D node2D && node2D.GlobalPosition != _apple.GlobalPosition)
+			{
+				GD.PrintErr("The Snake Collided with something that isn't an apple");
+			}
+
+			//hit a fruit
 			AudioStream eat = GD.Load("res://assets/sounds/eat.wav") as AudioStream;
 			_Sound.SetStream(eat);
 			_Sound.Play();
@@ -177,7 +188,7 @@ public partial class SnakePc : CharacterBody2D
 
 	private void UpdateBodySegments(Vector2 lastPos, bool ate)
 	{
-		GD.Print(_snakeBodySegments.ToString() + $"Length: {_snakeBodySegments.Count}");
+		//GD.Print(_snakeBodySegments.ToString() + $"Length: {_snakeBodySegments.Count}");
 		if(_snakeBodySegments.Count == 0)
 		{//add tail
 			BodyPart bodyPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
@@ -190,6 +201,9 @@ public partial class SnakePc : CharacterBody2D
 		}
 		if(ate)
 		{
+#if DEBUG
+			int bodyLength = _snakeBodySegments.Count;
+#endif
 			BodyPart firstPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
 			GetNode<Node2D>("../").AddChild(firstPart);
 			
@@ -200,6 +214,14 @@ public partial class SnakePc : CharacterBody2D
 			_snakeBodySegments.AddFirst(firstPart);
 
 			firstPart.updateSprite();
+
+#if DEBUG
+			//Brandon Test Case #2 Assert snake length increased by one after eat an apple
+			if(bodyLength + 1 != _snakeBodySegments.Count)
+			{
+				GD.PrintErr("Snake body length didn't increase by one as expected");
+			}
+#endif
 		}
 		else if(_snakeBodySegments.Count == 1)
 		{//has only a tail
@@ -224,6 +246,19 @@ public partial class SnakePc : CharacterBody2D
 
 			_snakeBodySegments.Last<BodyPart>().updateSprite();//update to now have tail
 			lastPart.updateSprite();
+
 		}
+#if DEBUG
+		//Brandon Test Case #1 Assert a tail exists
+		if(_snakeBodySegments.Last<BodyPart>() == null)
+		{
+			GD.PrintErr("Tail is null");
+		}
+		//Brandon Test Case #3 Assert a first bodypart has snake head as parent
+		if(_snakeBodySegments.First<BodyPart>().GetBodyParent() is not SnakePc)
+		{
+			GD.PrintErr("Head is null");
+		}
+#endif
 	}
 }
