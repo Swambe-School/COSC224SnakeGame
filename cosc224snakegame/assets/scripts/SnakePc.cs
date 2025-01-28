@@ -9,6 +9,7 @@ public partial class SnakePc : CharacterBody2D
 	private Vector2 _lastPosition;
 	[Export] private Sprite2D _apple;
 	[Export] private AnimatedSprite2D _headSprite;
+	[Export] private AudioStreamPlayer _Sound;
 	private int score = 0;
 	private int lastDirection; //0 - not moving, 1 - up, 2 - right, 3 - down, 4 - left
 	private Vector2 playerPosition;
@@ -133,18 +134,40 @@ public partial class SnakePc : CharacterBody2D
 			//kill player
 			GetTree().Paused = true;
 			GD.Print("Snake hit a wall");
+
+			AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
+			_Sound.SetStream(eat);
+			_Sound.Play();
+
+			Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
+			GetTree().Root.AddChild(scene); 
+			GameOver tempScene = (GameOver) scene;
+			tempScene.setFinalScore(GameController.getInstance().getScore());
+			GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
+			GetParent().GetParent().QueueFree();
+	  
 		}
 		else if(obj is BodyPart bodyPart)
 		{
 			//kill player
 			GetTree().Paused = true;
 			GD.Print("Snake hit it's self");
+			AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
+			_Sound.SetStream(eat);
+			_Sound.Play();
+
 		}
 		else
 		{
 			//hit a fruit or so snake body
+			GameController.getInstance().addPoint();
+			//score++
+			//GD.Print("Snake ate an apple! Score: " + score);
 			score++;
 			GD.Print("Snake ate an apple! Score: " + score);
+			AudioStream eat = GD.Load("res://assets/sounds/eat.wav") as AudioStream;
+			_Sound.SetStream(eat);
+			_Sound.Play();
 			Random rand = new Random();
 			_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
 			return true;

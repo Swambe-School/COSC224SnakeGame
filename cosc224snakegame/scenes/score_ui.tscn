@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://bss4ym36f6exh"]
+
+[ext_resource type="FontFile" uid="uid://1q76qvrv5h0f" path="res://assets/Fonts/ARCADECLASSIC.TTF" id="1_jgvcu"]
+[ext_resource type="Script" path="res://scripts/ScoreTracker.cs" id="1_y134o"]
+
+[node name="ScoreUI" type="Node2D"]
+z_index = 10
+script = ExtResource("1_y134o")
+
+[node name="Score" type="RichTextLabel" parent="."]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -121.0
+offset_top = -13.0
+offset_bottom = 13.0
+grow_horizontal = 0
+grow_vertical = 2
+size_flags_horizontal = 4
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_fonts/normal_font = ExtResource("1_jgvcu")
+theme_override_font_sizes/normal_font_size = 24
+text = " Score: 999 "
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
