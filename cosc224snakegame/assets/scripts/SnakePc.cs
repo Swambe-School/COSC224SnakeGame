@@ -12,6 +12,7 @@ public partial class SnakePc : CharacterBody2D
 	[Export] private AudioStreamPlayer _Sound;
 	private int score = 0;
 	private int lastDirection; //0 - not moving, 1 - up, 2 - right, 3 - down, 4 - left
+	private int _priorDirection;
 	private Vector2 playerPosition;
 	[Export]
 	public int Speed { get; set; } = 400;
@@ -91,7 +92,7 @@ public partial class SnakePc : CharacterBody2D
 			}
 			else
 			{
-				lastDirection = 3;
+				lastDirection = -1;
 			}*/
 		}
 	}
@@ -105,46 +106,86 @@ public partial class SnakePc : CharacterBody2D
 		{
 			moveTimer = 0f;
 		}
-		Vector2 dir = GetInput();
+		//Brandon #1 new refactored code
 		bool ate = false;
-		float playerX = GlobalPosition.X;
-		float playerY = GlobalPosition.Y;
-
-		_lastPosition = new Vector2(playerX, playerY);
+		Vector2 playerPos = GlobalPosition;
+		_lastPosition = playerPos;
 			//auto move
 		switch(lastDirection){
+			case 0://starting direction
+				break;
 			case 1://up
-				playerY += 16;
+				playerPos.Y += 16;
 				_headSprite.Rotation = 0;
 				ate = CheckCollision(_rayDown);
-				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
 			case 2://right
-				playerX += 16;
+				playerPos.X += 16;
 				_headSprite.Rotation = Mathf.Pi * -0.5f;
 				ate = CheckCollision(_rayRight);
-				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
-			case 3://down
-				playerY -= 16;
+			case -1://down
+				playerPos.Y -= 16;
 				_headSprite.Rotation = Mathf.Pi;
 				ate = CheckCollision(_rayUp);
-				this.SetGlobalPosition(new Vector2(playerX, playerY));
 				break;
-			case 4://left
-				playerX -= 16;
+			case -2://left
+				playerPos.X -= 16;
 				_headSprite.Rotation = Mathf.Pi * 0.5f;
 				ate = CheckCollision(_rayLeft);
-				this.SetGlobalPosition(new Vector2(playerX, playerY));
-				
 				break;
 			default:
+				GD.PrintErr("Invalid direction inputed");
 				break;
 		}
+
 		if(lastDirection != 0)
 		{
+			SetGlobalPosition(playerPos);
 			UpdateBodySegments(_lastPosition, ate);
 		}
+
+		//Brandon #2 old not refactored code
+		// Vector2 dir = GetInput();
+		// bool ate = false;
+		// float playerX = GlobalPosition.X;
+		// float playerY = GlobalPosition.Y;
+
+		// _lastPosition = new Vector2(playerX, playerY);
+		// 	//auto move
+		// switch(lastDirection){
+		// 	case 1://up
+		// 		playerY += 16;
+		// 		_headSprite.Rotation = 0;
+		// 		ate = CheckCollision(_rayDown);
+		// 		this.SetGlobalPosition(new Vector2(playerX, playerY));
+		// 		break;
+		// 	case 2://right
+		// 		playerX += 16;
+		// 		_headSprite.Rotation = Mathf.Pi * -0.5f;
+		// 		ate = CheckCollision(_rayRight);
+		// 		this.SetGlobalPosition(new Vector2(playerX, playerY));
+		// 		break;
+		// 	case 3://down
+		// 		playerY -= 16;
+		// 		_headSprite.Rotation = Mathf.Pi;
+		// 		ate = CheckCollision(_rayUp);
+		// 		this.SetGlobalPosition(new Vector2(playerX, playerY));
+		// 		break;
+		// 	case 4://left
+		// 		playerX -= 16;
+		// 		_headSprite.Rotation = Mathf.Pi * 0.5f;
+		// 		ate = CheckCollision(_rayLeft);
+		// 		this.SetGlobalPosition(new Vector2(playerX, playerY));
+				
+		// 		break;
+		// 	default:
+		// 		break;
+		// }
+		// if(lastDirection != 0)
+		// {
+		// 	UpdateBodySegments(_lastPosition, ate);
+		// }
 	}
 	private bool CheckCollision(RayCast2D ray)
 	{
@@ -174,12 +215,22 @@ public partial class SnakePc : CharacterBody2D
 		}
 		else if(obj is BodyPart bodyPart)
 		{
+			//Brandon #1 new refactored code
+			if(bodyPart != _snakeBodySegments.Last<BodyPart>())
+			{
+				GetTree().Paused = true;
+				AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
+				_Sound.SetStream(eat);
+				_Sound.Play();
+			}
+
+			//Brandon #1 old not refactored code
 			//kill player
-			GetTree().Paused = true;
-			GD.Print("Snake hit it's self");
-			AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
-			_Sound.SetStream(eat);
-			_Sound.Play();
+			// GetTree().Paused = true;
+			// GD.Print("Snake hit it's self");
+			// AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
+			// _Sound.SetStream(eat);
+			// _Sound.Play();
 
 		}
 		else
@@ -221,9 +272,9 @@ public partial class SnakePc : CharacterBody2D
 		}
 		if(ate)
 		{
-#if DEBUG
+			//Brandon Test Case #2 First Part
 			int bodyLength = _snakeBodySegments.Count;
-#endif
+
 			BodyPart firstPart = GD.Load<PackedScene>("res://scenes//body_part.tscn").Instantiate<BodyPart>();
 			GetNode<Node2D>("../").AddChild(firstPart);
 			
@@ -235,13 +286,11 @@ public partial class SnakePc : CharacterBody2D
 
 			firstPart.updateSprite();
 
-#if DEBUG
 			//Brandon Test Case #2 Assert snake length increased by one after eat an apple
 			if(bodyLength + 1 != _snakeBodySegments.Count)
 			{
 				GD.PrintErr("Snake body length didn't increase by one as expected");
 			}
-#endif
 		}
 		else if(_snakeBodySegments.Count == 1)
 		{//has only a tail
@@ -268,7 +317,6 @@ public partial class SnakePc : CharacterBody2D
 			lastPart.updateSprite();
 
 		}
-#if DEBUG
 		//Brandon Test Case #1 Assert a tail exists
 		if(_snakeBodySegments.Last<BodyPart>() == null)
 		{
@@ -279,6 +327,5 @@ public partial class SnakePc : CharacterBody2D
 		{
 			GD.PrintErr("Head is null");
 		}
-#endif
 	}
 }
