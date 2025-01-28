@@ -205,8 +205,8 @@ position = Vector2(152, 152)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_jduts")
-volume_db = -15.0
 autoplay = true
+bus = &"BackgroundMusic"
 
 [node name="ScoreUI" parent="." instance=ExtResource("7_ojaj3")]
 position = Vector2(433, 5)

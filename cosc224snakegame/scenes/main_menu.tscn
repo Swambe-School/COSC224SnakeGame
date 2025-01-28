@@ -83,8 +83,8 @@ position = Vector2(-611, -371)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_pflrd")
-volume_db = -10.0
 autoplay = true
+bus = &"BackgroundMusic"
 
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/PlayButton" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="Screen/MenuStack/ButtonStack/QuitButton" to="." method="_on_quit_button_pressed"]

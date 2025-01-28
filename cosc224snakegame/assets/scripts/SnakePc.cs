@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+//Sam Refactor: Moved Background music and Sound Effects into Serperate Audio Busses and adjusted audio levels
 public partial class SnakePc : CharacterBody2D
 {
 	private LinkedList<BodyPart> _snakeBodySegments;
@@ -201,9 +202,10 @@ public partial class SnakePc : CharacterBody2D
 			GetTree().Paused = true;
 			GD.Print("Snake hit a wall");
 
-			AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
+			//Sam Refactor: Moved Death sound to Game Over screen
+			/*AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
 			_Sound.SetStream(eat);
-			_Sound.Play();
+			_Sound.Play();*/
 
 			Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
 			GetTree().Root.AddChild(scene); 
@@ -226,11 +228,17 @@ public partial class SnakePc : CharacterBody2D
 
 			//Brandon #1 old not refactored code
 			//kill player
+			//Sam Refactor: Moved Death sound to Game Over screen
+			/*AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
+			_Sound.SetStream(eat);
+			_Sound.Play();*/
+
 			// GetTree().Paused = true;
 			// GD.Print("Snake hit it's self");
 			// AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
 			// _Sound.SetStream(eat);
 			// _Sound.Play();
+
 
 		}
 		else
@@ -239,6 +247,7 @@ public partial class SnakePc : CharacterBody2D
 			GameController.getInstance().addPoint();
 			//score++
 			//GD.Print("Snake ate an apple! Score: " + score);
+			//Sam Test Case 3: Sound should differ depending on which collision occurs (Apple vs Wall or Tail)
 
 			//Brandon Test Case #4 Assert that the collision is with the apple 
 			if(obj is Node2D node2D && node2D.GlobalPosition != _apple.GlobalPosition)
@@ -251,7 +260,21 @@ public partial class SnakePc : CharacterBody2D
 			_Sound.SetStream(eat);
 			_Sound.Play();
 			Random rand = new Random();
-			_apple.SetGlobalPosition(new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * rand.Next(2, 18) - 8));
+			Vector2 pos = new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * (rand.Next(2, 18)) - 8);
+			
+			
+			//Sam Refactor: Clean up Apple Spawning to not appear in snake body
+			//Sam Test Case 1: Adjust Apple not to spawn under body
+				bool check = true;
+				foreach(BodyPart b in _snakeBodySegments){
+					GD.Print(b.GlobalPosition);
+					if(_apple.GlobalPosition == b.GlobalPosition){
+						pos = new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * (rand.Next(2, 18)) - 8);
+						check = true;
+					}
+				}
+				_apple.SetGlobalPosition(pos);
+				
 			return true;
 		}
 		return false;
