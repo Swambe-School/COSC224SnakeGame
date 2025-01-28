@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://b56eb82gwttvh"]
+[gd_scene load_steps=5 format=3 uid="uid://b56eb82gwttvh"]
 
 [ext_resource type="Script" path="res://scripts/menuScripts/GameOver.cs" id="1_irput"]
 [ext_resource type="FontFile" uid="uid://1q76qvrv5h0f" path="res://assets/Fonts/ARCADECLASSIC.TTF" id="2_7tcjc"]
 [ext_resource type="Script" path="res://scripts/menuScripts/TitleEffects.cs" id="3_kibn4"]
+[ext_resource type="AudioStream" uid="uid://byag3651wjo5f" path="res://assets/sounds/explosion.wav" id="4_vuduc"]
 
 [node name="GameOver" type="Node2D"]
 script = ExtResource("1_irput")
@@ -19,8 +20,8 @@ offset_top = -559.0
 offset_right = 580.0
 offset_bottom = -299.0
 grow_horizontal = 2
-rotation = -0.0260249
-scale = Vector2(1.01162, 1.01162)
+rotation = -0.00664924
+scale = Vector2(1.03823, 1.03823)
 pivot_offset = Vector2(579.5, 130)
 theme_override_fonts/normal_font = ExtResource("2_7tcjc")
 theme_override_font_sizes/normal_font_size = 256
@@ -40,8 +41,8 @@ offset_top = -567.0
 offset_right = 568.0
 offset_bottom = -307.0
 grow_horizontal = 2
-rotation = -0.0378426
-scale = Vector2(0.974408, 0.974408)
+rotation = -0.118793
+scale = Vector2(0.959868, 0.959868)
 pivot_offset = Vector2(579.5, 130)
 theme_override_colors/default_color = Color(1, 0, 0, 1)
 theme_override_fonts/normal_font = ExtResource("2_7tcjc")
@@ -96,5 +97,10 @@ offset_right = 2235.0
 offset_bottom = 1116.0
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_vuduc")
+autoplay = true
+bus = &"SoundEffects"
 
 [connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
