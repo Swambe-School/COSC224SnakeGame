@@ -1,10 +1,12 @@
-[gd_scene load_steps=9 format=3 uid="uid://bfknd0ksxsuje"]
+[gd_scene load_steps=11 format=3 uid="uid://bfknd0ksxsuje"]
 
+[ext_resource type="Script" path="res://scripts/GameController.cs" id="1_3fkl0"]
 [ext_resource type="Texture2D" uid="uid://bjr5o1s0qt1f7" path="res://assets/sprites/world_tileset.png" id="1_xwlkw"]
 [ext_resource type="Script" path="res://scripts/TileMap.cs" id="2_6qe6g"]
 [ext_resource type="PackedScene" uid="uid://dwu2cf5ldk2dt" path="res://scenes/snake.tscn" id="3_h42j2"]
 [ext_resource type="PackedScene" uid="uid://cuyeow8ac7wg8" path="res://scenes/apple.tscn" id="4_fvrx0"]
 [ext_resource type="AudioStream" uid="uid://c5qp3iyodqag0" path="res://assets/sounds/459. Snake.mp3" id="5_jduts"]
+[ext_resource type="PackedScene" uid="uid://bss4ym36f6exh" path="res://scenes/score_ui.tscn" id="7_ojaj3"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_ugftg"]
 
@@ -175,7 +177,10 @@ sources/0 = SubResource("TileSetAtlasSource_ii57e")
 
 [node name="Game" type="Node2D"]
 
-[node name="TileMap" type="TileMap" parent="."]
+[node name="GameController" type="Node2D" parent="."]
+script = ExtResource("1_3fkl0")
+
+[node name="TileMap" type="TileMap" parent="GameController"]
 tile_set = SubResource("TileSet_dvpnj")
 collision_animatable = true
 format = 2
@@ -186,14 +191,14 @@ layer_1/z_index = 6
 layer_1/tile_data = PackedInt32Array(2, 65536, 0, 3, 65536, 0, 4, 65536, 0, 5, 65536, 0, 6, 65536, 0, 7, 65536, 0, 8, 65536, 0, 9, 65536, 0, 10, 65536, 0, 11, 65536, 0, 12, 65536, 0, 13, 65536, 0, 1, 65536, 0, 0, 65536, 0, 14, 65536, 0, 15, 65536, 0, 16, 65536, 0, 17, 65536, 0, 65536, 65536, 0, 131072, 65536, 0, 196608, 65536, 0, 262144, 65536, 0, 327680, 65536, 0, 393216, 65536, 0, 458752, 65536, 0, 524288, 65536, 0, 589824, 65536, 0, 655360, 65536, 0, 720896, 65536, 0, 786432, 65536, 0, 851968, 65536, 0, 917504, 65536, 0, 983040, 65536, 0, 1048576, 65536, 0, 786451, 196608, 8, 720915, 196608, 7, 655379, 131072, 8, 524307, 131072, 4, 720893, 327680, 8, 131069, 327680, 8, 589820, 65536, 3, 393236, 327680, 5, 327700, 327680, 4, 262164, 327680, 4, 196628, 327680, 3, 983060, 65536, 6, 1179652, 65536, 6, 524286, 65536, 6, 983037, 65536, 6, -65538, 65536, 6, 851988, 262144, 8, -131063, 262144, 8, 655358, 262144, 8, -131069, 458752, 7, 1245194, 458752, 7, 851963, 65536, 5, 327675, 65536, 5, 393213, 65536, 5, 786455, 65536, 5, 786426, 196608, 8, 720890, 196608, 8, 655354, 196608, 7, 524282, 131072, 4, 851965, 131072, 4, 393238, 131072, 4, 1179662, 65536, 5, -262144, 65536, 5, -196594, 65536, 5, 1376255, 65536, 6, 1441801, 65536, 6, 1441813, 65536, 6, 589850, 65536, 6, -65514, 65536, 6, -9, 65536, 6, 393205, 65536, 6, 851960, 65536, 6, 1245173, 65536, 6, 1179671, 65536, 4, 1507321, 65536, 4, 851956, 65536, 4, 1245179, 65536, 4, 131063, 65536, 4, -131078, 65536, 4, -327676, 65536, 4, -262125, 65536, 4, 196637, 65536, 4, 786466, 65536, 4, 1048604, 65536, 4, 262168, 65536, 4, 917534, 196608, 7, 851998, 196608, 7, 786462, 131072, 4, 1310738, 131072, 4, 1507330, 0, 5, 1441794, 0, 4, 1376258, 0, 4, 1310722, 0, 3, -262138, 327680, 6, 196601, 327680, 6, 589813, 327680, 6, 1179641, 327680, 6, 1638408, 327680, 6, 1376284, 327680, 6, 458785, 327680, 6, 65562, 327680, 6, -131042, 327680, 6, 983063, 327680, 8, 458779, 327680, 8, 1572859, 327680, 8, 1310726, 327680, 8, 1441806, 458752, 8, 983033, 458752, 8, -393204, 458752, 8, 393246, 458752, 8, 851995, 458752, 8, 1507353, 458752, 8, 1507360, 458752, 8, -393221, 458752, 8, -131085, 458752, 8, 18, 65536, 0, 65554, 65536, 0, 131090, 65536, 0, 196626, 65536, 0, 262162, 65536, 0, 327698, 65536, 0, 393234, 65536, 0, 458770, 65536, 0, 524306, 65536, 0, 589842, 65536, 0, 655378, 65536, 0, 720914, 65536, 0, 786450, 65536, 0, 851986, 65536, 0, 917522, 65536, 0, 983058, 65536, 0, 1048594, 65536, 0, 1114130, 65536, 0, 1114129, 65536, 0, 1114128, 65536, 0, 1114127, 65536, 0, 1114126, 65536, 0, 1114125, 65536, 0, 1114124, 65536, 0, 1114123, 65536, 0, 1114122, 65536, 0, 1114121, 65536, 0, 1114120, 65536, 0, 1114119, 65536, 0, 1114118, 65536, 0, 1114117, 65536, 0, 1114116, 65536, 0, 1114115, 65536, 0, 1114114, 65536, 0, 1114113, 65536, 0, 1114112, 65536, 0, 1179669, 393216, 5, 1114133, 393216, 4, 1048597, 393216, 3)
 script = ExtResource("2_6qe6g")
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="GameController"]
 position = Vector2(152, 152)
 zoom = Vector2(2, 2)
 position_smoothing_enabled = true
 
-[node name="Snake" parent="." node_paths=PackedStringArray("_apple") instance=ExtResource("3_h42j2")]
+[node name="Snake" parent="GameController" node_paths=PackedStringArray("_apple") instance=ExtResource("3_h42j2")]
 position = Vector2(152, 152)
-_apple = NodePath("../apple")
+_apple = NodePath("../../apple")
 
 [node name="apple" parent="." instance=ExtResource("4_fvrx0")]
 position = Vector2(152, 152)
@@ -202,3 +207,6 @@ position = Vector2(152, 152)
 stream = ExtResource("5_jduts")
 volume_db = -15.0
 autoplay = true
+
+[node name="ScoreUI" parent="." instance=ExtResource("7_ojaj3")]
+position = Vector2(433, 5)

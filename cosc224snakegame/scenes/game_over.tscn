@@ -1,0 +1,100 @@
+[gd_scene load_steps=4 format=3 uid="uid://b56eb82gwttvh"]
+
+[ext_resource type="Script" path="res://scripts/menuScripts/GameOver.cs" id="1_irput"]
+[ext_resource type="FontFile" uid="uid://1q76qvrv5h0f" path="res://assets/Fonts/ARCADECLASSIC.TTF" id="2_7tcjc"]
+[ext_resource type="Script" path="res://scripts/menuScripts/TitleEffects.cs" id="3_kibn4"]
+
+[node name="GameOver" type="Node2D"]
+script = ExtResource("1_irput")
+
+[node name="Camera" type="Camera2D" parent="."]
+zoom = Vector2(0.5, 0.5)
+
+[node name="GameOver" type="RichTextLabel" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -579.0
+offset_top = -559.0
+offset_right = 580.0
+offset_bottom = -299.0
+grow_horizontal = 2
+rotation = -0.0260249
+scale = Vector2(1.01162, 1.01162)
+pivot_offset = Vector2(579.5, 130)
+theme_override_fonts/normal_font = ExtResource("2_7tcjc")
+theme_override_font_sizes/normal_font_size = 256
+text = "Game Over"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("3_kibn4")
+
+[node name="GameOverShadow" type="RichTextLabel" parent="."]
+z_index = -1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -591.0
+offset_top = -567.0
+offset_right = 568.0
+offset_bottom = -307.0
+grow_horizontal = 2
+rotation = -0.0378426
+scale = Vector2(0.974408, 0.974408)
+pivot_offset = Vector2(579.5, 130)
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("2_7tcjc")
+theme_override_font_sizes/normal_font_size = 256
+text = "Game Over"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+script = ExtResource("3_kibn4")
+
+[node name="finalScore" type="RichTextLabel" parent="."]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -342.0
+offset_top = 124.0
+offset_right = 343.0
+offset_bottom = 212.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_7tcjc")
+theme_override_font_sizes/normal_font_size = 82
+text = "Your Score is: 999"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+
+[node name="Return" type="Button" parent="."]
+custom_minimum_size = Vector2(700, 125)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -189.0
+offset_top = 420.0
+offset_right = 190.0
+offset_bottom = 512.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("2_7tcjc")
+theme_override_font_sizes/font_size = 82
+text = "--  Main Menu  --"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+z_index = -5
+offset_left = -2765.0
+offset_top = -884.0
+offset_right = 2235.0
+offset_bottom = 1116.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[connection signal="pressed" from="Return" to="." method="_on_return_pressed"]
