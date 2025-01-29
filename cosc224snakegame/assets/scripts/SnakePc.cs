@@ -273,7 +273,6 @@ public partial class SnakePc : CharacterBody2D
 			//Sam Test Case 1: Adjust Apple not to spawn under body
 				bool check = true;
 				foreach(BodyPart b in _snakeBodySegments){
-					GD.Print(b.GlobalPosition);
 					if(_apple.GlobalPosition == b.GlobalPosition){
 						pos = new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * (rand.Next(2, 18)) - 8);
 						check = true;
