@@ -224,6 +224,12 @@ public partial class SnakePc : CharacterBody2D
 				AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
 				_Sound.SetStream(eat);
 				_Sound.Play();
+				Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
+				GetTree().Root.AddChild(scene); 
+				GameOver tempScene = (GameOver) scene;
+				tempScene.setFinalScore(GameController.getInstance().getScore());
+				GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
+				GetParent().GetParent().QueueFree();
 			}
 
 			//Brandon #1 old not refactored code
@@ -267,7 +273,6 @@ public partial class SnakePc : CharacterBody2D
 			//Sam Test Case 1: Adjust Apple not to spawn under body
 				bool check = true;
 				foreach(BodyPart b in _snakeBodySegments){
-					GD.Print(b.GlobalPosition);
 					if(_apple.GlobalPosition == b.GlobalPosition){
 						pos = new Vector2(16 * (rand.Next(2, 18)) - 8, 16 * (rand.Next(2, 18)) - 8);
 						check = true;
