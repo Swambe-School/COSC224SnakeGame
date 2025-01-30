@@ -207,12 +207,14 @@ public partial class SnakePc : CharacterBody2D
 			_Sound.SetStream(eat);
 			_Sound.Play();*/
 
-			Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
-			GetTree().Root.AddChild(scene); 
-			GameOver tempScene = (GameOver) scene;
-			tempScene.setFinalScore(GameController.getInstance().getScore());
-			GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
-			GetParent().GetParent().QueueFree();
+			//Ellis Refactors
+			this.QueueFree();
+			//Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
+			//GetTree().Root.AddChild(scene); 
+			//GameOver tempScene = (GameOver) scene;
+			//tempScene.setFinalScore(GameController.getInstance().getScore());
+			//GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
+			//GetParent().GetParent().QueueFree();
 	  
 		}
 		else if(obj is BodyPart bodyPart)
@@ -224,12 +226,7 @@ public partial class SnakePc : CharacterBody2D
 				AudioStream eat = GD.Load("res://assets/sounds/explosion.wav") as AudioStream;
 				_Sound.SetStream(eat);
 				_Sound.Play();
-				Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game_over.tscn").Instantiate();
-				GetTree().Root.AddChild(scene); 
-				GameOver tempScene = (GameOver) scene;
-				tempScene.setFinalScore(GameController.getInstance().getScore());
-				GetParent().GetNode<Camera2D>("Camera2D").Enabled = false;
-				GetParent().GetParent().QueueFree();
+				this.QueueFree();
 			}
 
 			//Brandon #1 old not refactored code
@@ -250,6 +247,10 @@ public partial class SnakePc : CharacterBody2D
 		else
 		{
 			//hit a fruit or so snake body
+			
+			//ELLIS TEST CASE #3 - When colliding with an apple add to the score tracker
+			GD.Print("+1");
+			
 			GameController.getInstance().addPoint();
 			//score++
 			//GD.Print("Snake ate an apple! Score: " + score);

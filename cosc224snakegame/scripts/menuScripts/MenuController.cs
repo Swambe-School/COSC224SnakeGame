@@ -17,6 +17,9 @@ public partial class MenuController : Node
 	
 	public void _on_play_button_pressed()
 	{
+		//ELLIS TEST CASE #1 - if the menu button is properly hooked up, Print "Menu Button Test".
+		GD.Print("Menu Button Test");
+		
 		Node scene = ResourceLoader.Load<PackedScene>("res://scenes/game.tscn").Instantiate();
 		GetTree().Root.AddChild(scene); 
 		camera.Enabled = false;
@@ -24,6 +27,9 @@ public partial class MenuController : Node
 	}
 	public void _on_quit_button_pressed()
 	{
+		//ELLIS TEST CASE #5 - if the Quit button is properly hooked up, Print "Quit Button Test".
+		GD.Print("Quit Button Test");
+		
 		GetTree().Quit();
 	}
 }
